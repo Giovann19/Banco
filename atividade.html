@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E o banco hein</title>
+
+<script>
+
+var nome_do_usuario;
+const senha_correta = "3589";
+
+// Função para verificar a senha
+function verificarSenha() {
+  nome_do_usuario = prompt("Digite seu nome de usuário:");
+  const senha_informada = prompt("Digite sua senha:");
+
+  if (senha_informada === senha_correta) {
+    alert(`Seja bem-vindo, ${nome_do_usuario}!`);
+  } else {
+    alert("Senha ou nome de usuário incorretos. Tente novamente.");
+    verificarSenha();
+  }
+}
+
+// Iniciar o processo de verificação de senha
+verificarSenha();
+
+function senhaa() {
+  const senha_informada = prompt("Digite sua senha:");
+
+  if (senha_informada === senha_correta) {
+  } else {
+    alert("Senha incorreta. Tente novamente.");
+    senhaa();
+  }
+}
+////Funcão principal
+function Banco() {
+  this.saldo = 0;
+  this.extrato = [];
+
+  this.deposito = function (valor) {
+    if (valor > 0) {
+      this.saldo += valor;
+      this.registrarTransacao(`Depósito: +${valor}`);
+      alert(`Depósito de R$ ${valor} realizado com sucesso. Saldo atual: R$ ${this.saldo}`);
+    } else {
+      alert("O valor do depósito deve ser maior que zero.");
+    }
+  };
+
+  ////Funcão ver saque
+  this.saque = function (valor) {
+    if (valor > 0 && valor <= this.saldo) {
+      this.saldo -= valor;
+      this.registrarTransacao(`Saque: -${valor}`);
+      alert(`Saque de R$ ${valor} realizado com sucesso. Saldo atual: R$ ${this.saldo}`);
+    } else if (valor <= 0) {
+      alert("O valor do saque deve ser maior que zero.");
+    } else {
+      alert("Saldo insuficiente para realizar o saque.");
+    }
+  };
+
+  //Funcão ver transferencia
+  this.transferencia = function (valor, contaDestino) {
+    if (valor > 0 && valor <= this.saldo) {
+      this.saldo -= valor;
+      contaDestino.deposito(valor);
+      this.registrarTransacao(`Transferência para ${contaDestino.nome}: -${valor}`);
+      alert(`Transferência de R$ ${valor} realizada para ${contaDestino.nome}. Saldo atual: R$ ${this.saldo}`);
+    } else if (valor <= 0) {
+      alert("O valor da transferência deve ser maior que zero.");
+    } else {
+      alert("Saldo insuficiente para realizar a transferência.");
+    }
+  };
+
+
+  //Função ver saldo.
+  this.verSaldo = function () {
+    alert(`Saldo atual: R$ ${this.saldo}`);
+  };
+
+  this.registrarTransacao = function (descricao) {
+    const dataHora = new Date().toLocaleString();
+    this.extrato.push(`${dataHora} - ${descricao}`);
+  };
+
+  this.mostrarExtrato = function () {
+    alert(this.extrato.join("\n"));
+  };
+}
+
+var conta1 = new Banco();
+conta1.nome = "Conta A";
+
+var conta2 = new Banco();
+conta2.nome = "Conta B";
+
+var opcao;
+
+do {
+  opcao = prompt("Escolha uma opção:\n1 - Ver saldo\n2 - Extrato\n3 - Saque\n4 - Depósito\n5 - Transferência\n6 - Sair");
+
+ //utilização do switch case , para gerenciar as opções
+
+  switch (opcao) {
+    case "1":
+      conta1.verSaldo();
+      break;
+    case "2":
+      senhaa();
+      conta1.mostrarExtrato();
+      break;
+    case "3":
+      senhaa();
+      var valorSaque = parseFloat(prompt("Digite o valor do saque:"));
+      conta1.saque(valorSaque);
+      break;
+    case "4":
+      var valorDeposito = parseFloat(prompt("Digite o valor do depósito:"));
+      conta1.deposito(valorDeposito);
+      break;
+    case "5":
+      senhaa();
+      var valorTransferencia = parseFloat(prompt("Digite o valor da transferência:"));
+      conta1.transferencia(valorTransferencia, conta2);
+      break;
+    case "6":
+      alert(`Foi um prazer tê-lo por aqui, ${nome_do_usuario}!`);
+      break;
+    default:
+      alert("Opção inválida. Tente novamente.");
+  }
+} while (opcao !== "6");
+
+
+
+
+// Função para solicitar a senha e verificar se está correta
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+</head>
+<body>
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
